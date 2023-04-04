@@ -1,7 +1,4 @@
-# Capstone Project (COMP3901)
-
-
-Schools Intervention System
+# Schools Intervention System
 
 Group Name: LAMRtech
 
