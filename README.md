@@ -1,5 +1,6 @@
 # COMP3901
-Repository for Capstone Project Files
+Capstone Project
+Schools Intervention System
 
 Group Name: LAMRtech
 
