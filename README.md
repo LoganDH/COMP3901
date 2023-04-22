@@ -47,6 +47,12 @@ set DATABASE_URL="postgresql://comp3901:comp3901@localhost/comp3901"
 
 
 
+
+
+
+
+
+
 ```
 # NOTES FROM THE ORIGINAL REPOSITORY
 ### source: https://github.com/LoganDH/flask-db-demo-logan
