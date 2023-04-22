@@ -40,19 +40,8 @@ set DATABASE_URL="postgresql://comp3901:comp3901@localhost/comp3901"
 - Run the migrations by typing `flask db upgrade`.
 
 - Start the development server using `flask --debug run`.
-<!--
 
 
-
-
-
-
-
-
-
-
-
- -->
 # NOTES FROM THE ORIGINAL REPOSITORY
 ### source: https://github.com/LoganDH/flask-db-demo-logan
 
