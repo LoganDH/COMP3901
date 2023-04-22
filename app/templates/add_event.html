@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>Log an Event</h1>
+    {% include 'flash_messages.html' %}
+    <form action="{{ url_for('new_event') }}" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group mb-3">
+            {{ form.event.label(class="form-label") }}
+            {{ form.event(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
