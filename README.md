@@ -4,6 +4,46 @@ Group Name: LAMRtech
 
 Group Members: Logan Halsall, Abegayle Williams, Mario Munroe, Raphiel Collins
 
+## Note from Logan
+Uses a postgresql database:
+    - Install postgresql
+    - Create user using the command: create user "comp3901";
+    - Create database using the command: create database "comp3901";
+    - Create password using the command: \password comp3901
+        - The password is: comp3901
+    - Change owner using the command: alter database comp3901 owner to comp3901;
+
+### Set the environment variables so you can connect to the database.
+
+```bash
+export SECRET_KEY="Som3$ec5etK*y"
+export DATABASE_URL="postgresql://comp3901:comp3901@localhost/comp3901"
+```
+
+Or on Windows:
+
+```powershell
+set SECRET_KEY="Som3$ec5etK*y"
+set DATABASE_URL="postgresql://comp3901:comp3901@localhost/comp3901"
+```
+
+- Create a Python virtual environment e.g. `python -m venv venv` (You may need to use `python3` instead)
+
+- Enter the virtual environment using `source venv/bin/activate` (or `.\venv\Scripts\activate` on Windows)
+
+- Install the dependencies using Pip. e.g. `pip install -r requirements.txt`. Note: Ensure you have PostgreSQL already installed and a database created.
+
+- Run the migrations by typing `flask db upgrade`.
+
+- Start the development server using `flask --debug run`.
+
+
+
+
+
+
+
+
 # NOTES FROM THE ORIGINAL REPOSITORY
 ### source: https://github.com/LoganDH/flask-db-demo-logan
 
