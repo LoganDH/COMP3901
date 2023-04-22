@@ -3,14 +3,14 @@ Group Name: LAMRtech
 Group Members: Logan Halsall, Abegayle Williams, Mario Munroe, Raphiel Collins
 
 ## Note
-#### Uses a postgresql database
+#### Uses a PostgreSQL database
 You will need to ensure you install PostgreSQL on your computer. You can do so by installing PostgreSQL from the link below and following the instructions:
 
 <https://www.postgresql.org/download/>
 
 When installing PostgreSQL, select the **PostgreSQL Server**, **pgAdmin 4** and **Command Line Tools** components. Ensure you deselect the _Stack Builder_ component during the installation as it is not necessary for this course.
 
-- Install postgresql
+- Install PostgreSQL
 - Create user using the command: create user "comp3901";
 - Create database using the command: create database "comp3901";
 - Create password using the command: \password comp3901
