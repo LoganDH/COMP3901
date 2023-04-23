@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Feedback</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading text-center">
+            <h1>Log An Event</h1>
+          </div>
+          <div class="panel-body">
+
+            <!-------Post Method used as confidential information will be stored in DB!-->
+            <form action="eventtodb.php" method="post">
+              <div class="form-group">
+                <label for="casename">Case Name: </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="casename"
+                  name="casename"
+                />
+              </div>
+              <div class="form-group">
+                <label for="created">Created Date: </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="createddate"
+                  name="createddate"
+                />
+              </div>
+              
+ 
+            
+              <div class="form-group">
+                <label for="logevent">Log Event: </label>
+                <textarea id= "logevent" class="form-control" type="text" name="logevent" placeholder="Example: John got hit by an apple in his face.." style="height:200px"></textarea>
+              </div>
+			  
+			  <div class="form-group">
+                <label for="location">Location of the Event: </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="location"
+                  name="location"
+                />
+              </div>
+
+              <!---Button that sends data to the DB-->
+              <input value="Log Event" type="submit" class="btn btn-primary" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

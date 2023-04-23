@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+
+* {
+  font-family: 'poppins', sans-serif;
+}
+
+body {
+  background-color: white;
+}
+
+
+
+
+
+header {
+  color: #0085FF;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  justify-content: left;
+  padding: 10px 0 10px 0;
+}
+
+
+.createuser {
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 45px;
+  outline: none;
+  width: 30%;
+  color: white;
+  background: #0085FF;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-group .input {
+  height: 45px;
+  width: 87%;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 15px;
+  padding: 0 0 0 45px;
+  background: #D3D3D3;
+  outline: none;
+}
+
+
+
+

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+
+* {
+  font-family: 'poppins', sans-serif;
+}
+
+body {
+  background-color: white;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.container {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px 0 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.image {
+  float: left;
+  margin-right: 20px;
+}
+
+
+header {
+  color: #0085FF;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+.input-field .input {
+  height: 45px;
+  width: 87%;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 15px;
+  padding: 0 0 0 45px;
+  background: #D3D3D3;
+  outline: none;
+}
+
+i {
+  position: relative;
+  top: -33px;
+  left: 17px;
+  color: #000;
+}
+
+::-webkit-input-placeholder {
+  color: #000;
+}
+
+.login {
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 45px;
+  outline: none;
+  width: 100%;
+  color: white;
+  background: #0085FF;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.two{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color: #0085FF;
+	font-size: small;
+	margin-top: 10px;
+	align-content: right;
+	font-weight: bold;
+
+}
+
+
+.two-col {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #000;
+  font-size: small;
+  margin-top: 10px;
+}
+
+.one {
+  display: flex;
+}
+
+label a {
+  text-decoration: none;
+  color: #000;
+}

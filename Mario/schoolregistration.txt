@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading text-center">
+            <h1>Registration a user to the System</h1>
+			<h5>Welcome to the create user screen. Below you will be prompted to enter some information on the user you want to create.<br>
+			Once you click "Create user Account" the user will be created and will be able to log on to the system</h5>
+          </div>
+          <div class="panel-body">
+
+            <!-------Post Method used as confidential information will be stored in DB!-->
+            <form action="connect.php" method="post">
+              <div class="form-group">
+                <label for="firstName">User Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="firstName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">School Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="lastName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                />
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <div>
+                  <label for="student" class="radio-inline"
+                    ><input
+                      type="radio"
+                      name="category"
+                      value="s"
+                      id="student"
+                    />Student</label
+                  >
+                  <label for="teacher" class="radio-inline"
+                    ><input
+                      type="radio"
+                      name="category"
+                      value="t"
+                      id="teacher"
+                    />Teacher</label
+                  >
+				  </div>
+
+              <!---Button that sends data to the DB-->
+              <input value="Create New User" type="submit" class="btn btn-primary" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

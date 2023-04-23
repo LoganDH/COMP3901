@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading text-center">
+            <h1>Schools Intervention System</h1>
+            <div class="image">
+              <img src = "logo.jpeg">
+            </div>
+            
+			<h5>Welcome to the Register School screen. Below you will be prompted to enter some information on the school you want to register.<br>
+			Once you click "Register School" the school will be registered to the system</h5>
+          </div>
+          <div class="panel-body" >
+
+            <!-------Post Method used as confidential information will be stored in DB!-->
+            <form action="connect.php" method="post">
+              <div class="form-group">
+                <label for="schoolname">School Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="schoolname"
+                  name="schoolname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="address"> Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  name="address"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="number">Telephone Number</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="number"
+                  name="number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="principalname">Principal Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="principalname"
+                  name="principalname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                />
+              </div>
+              <!---Button that sends data to the DB-->
+              <input value="Register School" type="submit" class="btn btn-primary" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
