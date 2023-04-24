@@ -3,7 +3,7 @@ import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
-import mysql.connector
+# import mysql.connector
 
 # Connect to MySQL database
 mydb = mysql.connector.connect(
