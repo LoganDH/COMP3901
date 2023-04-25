@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
 # import mysql.connector
 
+"""
 # Connect to MySQL database
 mydb = mysql.connector.connect(
   host="localhost",
@@ -12,6 +13,7 @@ mydb = mysql.connector.connect(
 #   password="yourpassword",
   database="capstone"
 )
+"""
 
 # Retrieve data from MySQL database
 mycursor = mydb.cursor()
