@@ -3,7 +3,7 @@ import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
-import mysql.connector
+# import mysql.connector
 
 def cluster_data(data, eps):
     # Remove stop words and tokenize text data
@@ -34,6 +34,7 @@ def cluster_data(data, eps):
 
 
 """
+
 # Connect to MySQL database
 mydb = mysql.connector.connect(
   host="localhost",
@@ -41,12 +42,13 @@ mydb = mysql.connector.connect(
 #   password="yourpassword",
   database="capstone"
 )
-"""
+
 
 # Retrieve data from MySQL database
 mycursor = mydb.cursor()
 mycursor.execute("SELECT * FROM sample_data")
 data = [str(row[0]) for row in mycursor.fetchall()]
+
 
 # Prompt the user to enter the eps parameter
 eps = input("Enter the eps parameter (default is 0.5): ").strip()
@@ -59,3 +61,5 @@ else:
 # Cluster data and print the results
 results = cluster_data(data, eps=eps)
 print(results)
+
+"""
