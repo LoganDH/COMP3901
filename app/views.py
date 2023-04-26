@@ -1,7 +1,8 @@
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash
-from .models import User, Events
-from .forms import UserForm, EventForm
+from .models import User as UserTBL, Events as EventsTBL
+from .forms import UserForm, EventForm, DistanceForm
+from .extractor import cluster_data
 
 
 ###
@@ -19,17 +20,36 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="LAMRtech's Capstone Project")
 
+
 @app.route('/users')
 def users():
-    users = User.query.all()
+    users = UserTBL.query.all()
 
     return render_template('users.html', users=users)
 
-@app.route('/events')
-def events():
-    events = Events.query.all()
 
-    return render_template('events.html', events=events)
+@app.route('/events', methods=['post', 'get'])
+def events():
+    # Get rows from the Events table
+    events = EventsTBL.query.all()
+    
+    new_distance_form = DistanceForm()
+    if new_distance_form.validate_on_submit():
+        # Get distance
+        distance = new_distance_form.distance.data
+        print(f"Distance: {distance}")
+        # Filter event entries out of Events table
+        entries = []
+        for event in events:    
+            entries.append(event.entry)
+        extractions=cluster_data(entries, float(distance))
+        for key, values in extractions.items():
+            print(f'{key}:')
+            for value in values:
+                print(value)
+
+    return render_template('events.html', events=events, form=new_distance_form)
+
 
 @app.route('/users/new', methods=['post', 'get'])
 def new_user():
@@ -39,7 +59,7 @@ def new_user():
         email = new_user_form.email.data
         # password = new_user_form.password.data
 
-        user = User(username, email) # , password
+        user = UserTBL(username, email) # , password
         db.session.add(user)
         db.session.commit()
 
@@ -49,18 +69,19 @@ def new_user():
     flash_errors(new_user_form)
     return render_template('add_user.html', form=new_user_form)
 
+
 @app.route('/events/new', methods=['post', 'get'])
 def new_event():
     new_event_form = EventForm()
     if new_event_form.validate_on_submit():
         event = new_event_form.event.data
 
-        entry = Events(event)
+        entry = EventsTBL(event)
         db.session.add(entry)
         db.session.commit()
 
         flash('Message successfully added!', 'success')
-        redirect(url_for('events'))
+        return redirect(url_for('events'))
 
     flash_errors(new_event_form)
     return render_template('add_event.html', form=new_event_form)

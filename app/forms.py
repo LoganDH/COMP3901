@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, DecimalField # PasswordField
 from wtforms.validators import InputRequired, Email
 
 class UserForm(FlaskForm):
@@ -17,3 +17,6 @@ class SchoolForm(FlaskForm):
     address = StringField('Address', validators=[InputRequired()])
     phone = StringField('Phone', validators=[InputRequired()])
     email = StringField('E-Mail', validators=[InputRequired(), Email()])
+
+class DistanceForm(FlaskForm):
+    distance = DecimalField('Distance', places=1, rounding=None)
