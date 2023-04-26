@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
 # import mysql.connector
 
-data = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
+events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
 
 distance = 0.8
 
@@ -37,7 +37,7 @@ def cluster_data(data, distance):
             results[f'Cluster {cluster_id}'] = list(cluster_data['text'])
     return results
 
-results = cluster_data(data, distance)
+results = cluster_data(events, distance)
 print(results)
 
 """
