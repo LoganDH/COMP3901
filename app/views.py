@@ -33,6 +33,7 @@ def events():
     # Get rows from the Events table
     events = EventsTBL.query.all()
     
+    # Instantiate distance form
     new_distance_form = DistanceForm()
     if new_distance_form.validate_on_submit():
         # Get distance
@@ -42,6 +43,7 @@ def events():
         entries = []
         for event in events:    
             entries.append(event.entry)
+        # Generate clusters and print the data
         extractions=cluster_data(entries, float(distance))
         for key, values in extractions.items():
             print(f'{key}:')
