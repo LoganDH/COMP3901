@@ -2,8 +2,7 @@ from app import app, db
 from flask import render_template, request, redirect, url_for, flash
 from .models import User as UserTBL, Events as EventsTBL
 from .forms import UserForm, EventForm, DistanceForm
-from .extractor import cluster_data
-
+from .extractor import fetch_data, cluster_data
 
 ###
 # Routing for your application.
@@ -24,7 +23,6 @@ def about():
 @app.route('/users')
 def users():
     users = UserTBL.query.all()
-
     return render_template('users.html', users=users)
 
 
@@ -32,25 +30,20 @@ def users():
 def events():
     # Get rows from the Events table
     events = EventsTBL.query.all()
-    
-    # Instantiate distance form
+    return render_template('events.html', events=events)
+
+@app.route('/process-data', methods=['post', 'get'])
+def process_data():
+    data = fetch_data()
     new_distance_form = DistanceForm()
     if new_distance_form.validate_on_submit():
-        # Get distance
-        distance = new_distance_form.distance.data
-        print(f"Distance: {distance}")
-        # Filter event entries out of Events table
-        entries = []
-        for event in events:    
-            entries.append(event.entry)
-        # Generate clusters and print the data
-        extractions=cluster_data(entries, float(distance))
-        for key, values in extractions.items():
-            print(f'{key}:')
-            for value in values:
-                print(value)
+        distance = float(new_distance_form.distance.data)
+        clusters = cluster_data(data, distance)
+        return render_template('process_data.html', form=new_distance_form, data=data, clusters=clusters)
 
-    return render_template('events.html', events=events, form=new_distance_form)
+
+
+    return render_template('process_data.html', form=new_distance_form, data=data)
 
 
 @app.route('/users/new', methods=['post', 'get'])

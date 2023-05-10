@@ -1,17 +1,11 @@
 import pandas as pd
 import nltk
+import csv
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
+from os.path import join, dirname, realpath
 # import mysql.connector
-
-"""
-
-events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
-
-distance = 0.8
-
-"""
 
 def cluster_data(data, distance):
     # Remove stop words and tokenize text data
@@ -40,13 +34,52 @@ def cluster_data(data, distance):
             results[f'Cluster {cluster_id}'] = list(cluster_data['text'])
     return(results)
 
-"""
-
-results = cluster_data(events, distance)
-print(results)
 
 
+def fetch_data():
+    data = []
+    DATASETS_PATH = join(dirname(realpath(__file__)), 'static/datasets')
+    file = open(f'{DATASETS_PATH}/sentence_pairs.csv', 'r')
+    for row in list(csv.reader(file, delimiter=',')):
+        data.append(row[0])
+    file.close()
+    return(data)
 
+    '''with open('datasets/sentence_pairs.csv', 'w', encoding='UTF-8', newline='') as file:
+        writer = csv.writer(file)
+        for row in data:
+            writer.writerow(row)'''
+
+
+
+
+'''
+distance = float(input('epsilon'))
+
+    clusters = cluster_data(data=data, distance=distance)
+
+    numOfClusters = list(clusters)[-1].split(" ")[1]
+
+    print(f'# OF CLUSTERS: {numOfClusters}')
+    return clusters
+
+clusters = process_file()
+for key, value in clusters.items():
+    print(key)
+    print(value)
+'''
+
+
+
+
+'''
+events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
+'''
+
+
+
+
+'''
 # Connect to MySQL database
 mydb = mysql.connector.connect(
   host="localhost",
@@ -55,12 +88,10 @@ mydb = mysql.connector.connect(
   database="capstone"
 )
 
-
 # Retrieve data from MySQL database
 mycursor = mydb.cursor()
 mycursor.execute("SELECT * FROM sample_data")
 data = [str(row[0]) for row in mycursor.fetchall()]
-
 
 # Prompt the user to enter the eps parameter
 eps = input("Enter the eps parameter (default is 0.5): ").strip()
@@ -73,5 +104,4 @@ else:
 # Cluster data and print the results
 results = cluster_data(data, eps=eps)
 print(results)
-
-"""
+'''

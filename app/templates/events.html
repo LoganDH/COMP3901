@@ -4,14 +4,6 @@
     <section class="d-flex justify-content-between align-items-center">
         <h1>Events</h1>
         <a href="{{ url_for('new_event')}}" class="btn btn-sm btn-primary">Log an Event</a>
-        <form action="{{ url_for('events') }}" method="post">
-            {{ form.csrf_token }}
-            <div class="form-group mb-3">
-                {{ form.distance.label(class="form-label") }}
-                {{ form.distance(class="form-control") }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
     </section>
 
     {% include 'flash_messages.html' %}
