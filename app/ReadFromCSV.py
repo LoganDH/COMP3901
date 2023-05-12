@@ -1,40 +1,25 @@
 import csv
-import extractor
+from os.path import join, dirname, realpath
 
 def process_file():
     data = []
-
-    file = open('datasets/1377882923_sentence_pairs.csv', 'r')
-
+    DATASETS_PATH = join(dirname(realpath(__file__)), 'static/datasets')
+    file = open(f'{DATASETS_PATH}/deaths-in-india-satp-dfe.csv', 'r')
     for row in list(csv.reader(file, delimiter=',')):
-        data.append(row[0])
-        data.append(row[1])
-
+        data.append(row[23])
     file.close()
+    data = list(dict.fromkeys(data))
+    ref_data=[]
+    for d in data:
+        ref_data.append([d])
 
-    distance = float(input('epsilon'))
+    with open(f'{DATASETS_PATH}/military-incidents-in-india.csv', 'w', encoding='UTF-8', newline='') as file:
+        writer = csv.writer(file)
+        for row in ref_data:
+            writer.writerow(row)
 
-    clusters = extractor.cluster_data(data=data, distance=distance)
+process_file()
 
-    numOfClusters = list(clusters)[-1].split(" ")[1]
 
-    print(f'# OF CLUSTERS: {numOfClusters}')
-    return clusters
 
-clusters = process_file()
-for key, value in clusters.items():
-    print(key)
-    print(value)
-
-'''distance=0.30
-prev_dict={}
-while distance < 0.50:
-    print(f'DISTANCE: {distance}')
-    current_dict=process_file(distance=distance)
-    distance+=0.01
-    if prev_dict:
-        if prev_dict.get('Noise data')==current_dict.get('Noise data'):
-            print(True)
-        else:
-            print(False)
-    prev_dict=current_dict'''
+#numOfClusters = list(clusters)[-1].split(" ")[1]

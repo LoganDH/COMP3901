@@ -28,7 +28,6 @@ def users():
 
 @app.route('/events', methods=['post', 'get'])
 def events():
-    # Get rows from the Events table
     events = EventsTBL.query.all()
     return render_template('events.html', events=events)
 
@@ -38,10 +37,9 @@ def process_data():
     new_distance_form = DistanceForm()
     if new_distance_form.validate_on_submit():
         distance = float(new_distance_form.distance.data)
+        print(distance)
         clusters = cluster_data(data, distance)
         return render_template('process_data.html', form=new_distance_form, data=data, clusters=clusters)
-
-
 
     return render_template('process_data.html', form=new_distance_form, data=data)
 
@@ -70,11 +68,9 @@ def new_event():
     new_event_form = EventForm()
     if new_event_form.validate_on_submit():
         event = new_event_form.event.data
-
         entry = EventsTBL(event)
         db.session.add(entry)
         db.session.commit()
-
         flash('Message successfully added!', 'success')
         return redirect(url_for('events'))
 

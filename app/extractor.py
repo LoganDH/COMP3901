@@ -18,7 +18,7 @@ def cluster_data(data, distance):
     tfidf_matrix = tfidf_vectorizer.fit_transform([' '.join(text) for text in tokenized_data])
 
     # Cluster data into categories using DBSCAN
-    dbscan = DBSCAN(eps=distance, min_samples=2, metric='cosine')
+    dbscan = DBSCAN(eps=distance, min_samples=4, metric='cosine')
     dbscan.fit(tfidf_matrix)
 
     # Assign each data entry to its corresponding cluster
@@ -31,7 +31,7 @@ def cluster_data(data, distance):
         if cluster_id == -1:
             results['Noise data'] = list(cluster_data['text'])
         else:
-            results[f'Cluster {cluster_id}'] = list(cluster_data['text'])
+            results[f'Case {cluster_id}'] = list(cluster_data['text'])
     return(results)
 
 
@@ -45,15 +45,19 @@ def fetch_data():
     file.close()
     return(data)
 
-    '''with open('datasets/sentence_pairs.csv', 'w', encoding='UTF-8', newline='') as file:
-        writer = csv.writer(file)
-        for row in data:
-            writer.writerow(row)'''
-
 
 
 
 '''
+with open('datasets/sentence_pairs.csv', 'w', encoding='UTF-8', newline='') as file:
+    writer = csv.writer(file)
+    for row in data:
+        writer.writerow(row)
+
+
+
+
+
 distance = float(input('epsilon'))
 
     clusters = cluster_data(data=data, distance=distance)
@@ -67,19 +71,19 @@ clusters = process_file()
 for key, value in clusters.items():
     print(key)
     print(value)
-'''
 
 
 
 
-'''
+
+
 events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
-'''
 
 
 
 
-'''
+
+
 # Connect to MySQL database
 mydb = mysql.connector.connect(
   host="localhost",
