@@ -1,5 +1,5 @@
 from . import db
-# from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 class User(db.Model):
@@ -7,19 +7,19 @@ class User(db.Model):
     # __tablename__ = "user_profiles"
 
     id = db.Column(db.Integer, primary_key=True)
-    school_id = db.Column(db.ForeignKey("schools.id"))
+    # school_id = db.Column(db.ForeignKey("schools.id"))
     username = db.Column(db.String(80), unique=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
-    # password = db.Column(db.String(255))
+    password = db.Column(db.String(255))
 
-    def __init__(self, username, first_name, last_name, email):
+    def __init__(self, username, first_name, last_name, email, password):
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        # self.password = generate_password_hash(password)
+        self.password = generate_password_hash(password)
 
     def __repr__(self):
         return '<User %r>' % self.username

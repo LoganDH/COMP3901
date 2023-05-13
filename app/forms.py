@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField # PasswordField
+from wtforms import StringField, DecimalField, PasswordField
 from wtforms.validators import InputRequired, Email
 
 class UserForm(FlaskForm):
@@ -7,7 +7,7 @@ class UserForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired()])
     last_name = StringField('Last Name', validators=[InputRequired()])
     email = StringField('Email', validators=[InputRequired(), Email()])
-    # password = PasswordField('Password', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
 
 class EventForm(FlaskForm):
     event = StringField('Event', validators=[InputRequired()])
