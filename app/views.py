@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash
 from .models import User as UserTBL, Events as EventsTBL, Schools as SchoolsTBL
-from .forms import UserForm, EventForm, DistanceForm, SchoolForm
+from .forms import UserForm, EventForm, DistanceForm, NewDistanceForm, SchoolForm
 from .extractor import fetch_data, cluster_data, get_schools
 
 ###
@@ -38,19 +38,29 @@ def users():
 @app.route('/events', methods=['post', 'get'])
 def events():
     events = EventsTBL.query.all()
-    return render_template('events.html', events=events)
+    new_distance_form = NewDistanceForm()
+    if new_distance_form.validate_on_submit():
+        distance = float(new_distance_form.distance.data)
+        min_samples = new_distance_form.min_samples.data
+        data = [event.entry for event in events]
+        clusters = cluster_data(data, min_samples, distance)
+        print(clusters)
+        return render_template('events.html', form=new_distance_form, events=events, clusters=clusters)
+
+    return render_template('events.html', form=new_distance_form, events=events)
 
 @app.route('/process-data', methods=['post', 'get'])
 def process_data():
-    data = fetch_data()
     new_distance_form = DistanceForm()
     if new_distance_form.validate_on_submit():
+        file = new_distance_form.file.data
         distance = float(new_distance_form.distance.data)
-        print(distance)
-        clusters = cluster_data(data, distance)
+        min_samples = new_distance_form.min_samples.data
+        data = fetch_data(file)
+        clusters = cluster_data(data, min_samples, distance)
         return render_template('process_data.html', form=new_distance_form, data=data, clusters=clusters)
 
-    return render_template('process_data.html', form=new_distance_form, data=data)
+    return render_template('process_data.html', form=new_distance_form)
 
 @app.route('/schools/new', methods=['post', 'get'])
 def new_school():

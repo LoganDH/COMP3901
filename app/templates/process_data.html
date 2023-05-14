@@ -6,6 +6,14 @@
         <form action="{{ url_for('process_data') }}" method="post">
             {{ form.csrf_token }}
             <div class="form-group mb-3">
+                {{ form.file.label(class="form-label") }}
+                {{ form.file(class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.min_samples.label(class="form-label") }}
+                {{ form.min_samples(class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
                 {{ form.distance.label(class="form-label") }}
                 {{ form.distance(class="form-control") }}
             </div>
@@ -28,7 +36,7 @@
             </tbody>
         </table>
         {% else %}
-            <p>There are no results, please select a file, enter a distance and click 'Submit'.</p>
+            <p>There are no results, please select a file, enter min_samples and distance then click 'Submit'.</p>
         {% endif %}
     </div>
 
@@ -48,7 +56,7 @@
             </tbody>
         </table>
         {% else %}
-            <p>There are no results, please select a file, enter a distance and click 'Submit'.</p>
+            <p>There are no results, please select a file, enter min_samples and distance then click 'Submit'.</p>
         {% endif %}
     </div>
 {% endblock %}

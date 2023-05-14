@@ -4,16 +4,28 @@
     <section class="d-flex justify-content-between align-items-center">
         <h1>Events</h1>
         <a href="{{ url_for('new_event')}}" class="btn btn-sm btn-primary">Log an Event</a>
+        <form action="{{ url_for('events') }}" method="post">
+            {{ form.csrf_token }}
+            <div class="form-group mb-3">
+                {{ form.min_samples.label(class="form-label") }}
+                {{ form.min_samples(class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.distance.label(class="form-label") }}
+                {{ form.distance(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </section>
 
     {% include 'flash_messages.html' %}
 
-    <div class="table-responsive">
+    <button type="button" class="collapsible">Input Data</button>
+    <div class="content">
         {% if events %}
         <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
                     <th>Date & Time</th>
                     <th>Message</th>
                 </tr>
@@ -21,7 +33,6 @@
             <tbody>
                 {% for event in events %}
                     <tr>
-                        <td>{{ event.id }}</td>
                         <td>{{ event.date }}</td>
                         <td>{{ event.entry }}</td>
                     </tr>
@@ -30,6 +41,26 @@
         </table>
         {% else %}
             <p>There are currently no events.</p>
+        {% endif %}
+    </div>
+
+    <button type="button" class="collapsible">Results</button>
+    <div class="content">
+        {% if clusters %}
+        <table class="table table-striped table-bordered table-hover">
+            <tbody>
+                {% for key, values in clusters.items() %}
+                    <tr>
+                        <td><b>{{ key }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>{{ values }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>There are no results, enter min_samples and distance then click 'Submit'.</p>
         {% endif %}
     </div>
 {% endblock %}
