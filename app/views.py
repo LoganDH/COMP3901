@@ -1,29 +1,38 @@
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash
-from .models import User as UserTBL, Events as EventsTBL
-from .forms import UserForm, EventForm, DistanceForm
-from .extractor import fetch_data, cluster_data
+from .models import User as UserTBL, Events as EventsTBL, Schools as SchoolsTBL
+from .forms import UserForm, EventForm, DistanceForm, SchoolForm
+from .extractor import fetch_data, cluster_data, get_schools
 
 ###
 # Routing for your application.
 ###
+
 
 @app.route('/')
 def home():
     """Render website's home page."""
     return render_template('home.html')
 
-
-@app.route('/about/')
-def about():
-    """Render the website's about page."""
-    return render_template('about.html', name="LAMRtech's Capstone Project")
-
+@app.route('/schools')
+def schools():
+    schools = get_schools()
+    return render_template('schools.html', schools=schools)
 
 @app.route('/users')
 def users():
     users = UserTBL.query.all()
-    return render_template('users.html', users=users)
+    schools = []
+    for user in users:
+        school_id = user.school_id
+        if school_id:
+            school = SchoolsTBL.query.filter_by(id=school_id).first()
+            schools.append(school.name)
+        else:
+            schools.append('None')
+    results = list(zip(users, schools))
+    
+    return render_template('users.html', results=results)
 
 
 @app.route('/events', methods=['post', 'get'])
@@ -43,16 +52,39 @@ def process_data():
 
     return render_template('process_data.html', form=new_distance_form, data=data)
 
+@app.route('/schools/new', methods=['post', 'get'])
+def new_school():
+    new_school_form = SchoolForm()
+    if new_school_form.validate_on_submit():
+        name = new_school_form.name.data
+        address = new_school_form.address.data
+        phone = new_school_form.phone.data
+        email = new_school_form.email.data
+
+        school = SchoolsTBL(name, address, phone, email)
+        db.session.add(school)
+        db.session.commit()
+        #UserForm.school_id.choices = UserForm.get_schools()
+
+        flash('School successfully added!', 'success')
+        redirect(url_for('schools'))
+
+    flash_errors(new_school_form)
+    return render_template('add_school.html', form=new_school_form)
 
 @app.route('/users/new', methods=['post', 'get'])
 def new_user():
     new_user_form = UserForm()
     if new_user_form.validate_on_submit():
+        school_id = new_user_form.school_id.data
         username = new_user_form.username.data
+        first_name = new_user_form.first_name.data
+        last_name = new_user_form.last_name.data
         email = new_user_form.email.data
-        # password = new_user_form.password.data
+        password = new_user_form.password.data
 
-        user = UserTBL(username, email) # , password
+        print(school_id, username, first_name, last_name, email, password)
+        user = UserTBL(school_id, username, first_name, last_name, email, password)
         db.session.add(user)
         db.session.commit()
 

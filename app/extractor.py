@@ -1,3 +1,4 @@
+from .models import Schools as SchoolsTBL
 import pandas as pd
 import nltk
 import csv
@@ -5,7 +6,6 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
 from os.path import join, dirname, realpath
-# import mysql.connector
 
 def cluster_data(data, distance):
     # Remove stop words and tokenize text data
@@ -34,8 +34,6 @@ def cluster_data(data, distance):
             results[f'Case {cluster_id}'] = list(cluster_data['text'])
     return(results)
 
-
-
 def fetch_data():
     data = []
     DATASETS_PATH = join(dirname(realpath(__file__)), 'static/datasets')
@@ -45,15 +43,20 @@ def fetch_data():
     file.close()
     return(data)
 
-
-
+def get_schools():
+    schools = SchoolsTBL.query.all()
+    return(schools)
 
 '''
+# import mysql.connector
+
+
+
+
 with open('datasets/sentence_pairs.csv', 'w', encoding='UTF-8', newline='') as file:
     writer = csv.writer(file)
     for row in data:
         writer.writerow(row)
-
 
 
 
@@ -67,6 +70,9 @@ distance = float(input('epsilon'))
     print(f'# OF CLUSTERS: {numOfClusters}')
     return clusters
 
+
+
+
 clusters = process_file()
 for key, value in clusters.items():
     print(key)
@@ -75,11 +81,7 @@ for key, value in clusters.items():
 
 
 
-
-
 events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
-
-
 
 
 
