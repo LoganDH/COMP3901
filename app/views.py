@@ -44,7 +44,6 @@ def events():
         data = [event.entry for event in events]
         if data:
             clusters = cluster_data(data, min_samples, distance)
-            print(clusters)
             return render_template('events.html', form=new_distance_form, events=events, clusters=clusters)
 
     return render_template('events.html', form=new_distance_form, events=events)
