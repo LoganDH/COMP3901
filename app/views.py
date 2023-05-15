@@ -34,7 +34,6 @@ def users():
     
     return render_template('users.html', results=results)
 
-
 @app.route('/events', methods=['post', 'get'])
 def events():
     events = EventsTBL.query.all()
@@ -43,9 +42,10 @@ def events():
         distance = float(new_distance_form.distance.data)
         min_samples = new_distance_form.min_samples.data
         data = [event.entry for event in events]
-        clusters = cluster_data(data, min_samples, distance)
-        print(clusters)
-        return render_template('events.html', form=new_distance_form, events=events, clusters=clusters)
+        if data:
+            clusters = cluster_data(data, min_samples, distance)
+            print(clusters)
+            return render_template('events.html', form=new_distance_form, events=events, clusters=clusters)
 
     return render_template('events.html', form=new_distance_form, events=events)
 
@@ -74,7 +74,6 @@ def new_school():
         school = SchoolsTBL(name, address, phone, email)
         db.session.add(school)
         db.session.commit()
-        #UserForm.school_id.choices = UserForm.get_schools()
 
         flash('School successfully added!', 'success')
         redirect(url_for('schools'))
@@ -103,7 +102,6 @@ def new_user():
 
     flash_errors(new_user_form)
     return render_template('add_user.html', form=new_user_form)
-
 
 @app.route('/events/new', methods=['post', 'get'])
 def new_event():
