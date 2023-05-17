@@ -91,8 +91,8 @@ def new_user():
         email = new_user_form.email.data
         password = new_user_form.password.data
 
-        print(school_id, username, first_name, last_name, email, password)
-        user = UserTBL(school_id, username, first_name, last_name, email, password)
+        print(school_id.id, username, first_name, last_name, email, password)
+        user = UserTBL(school_id.id, username, first_name, last_name, email, password)
         db.session.add(user)
         db.session.commit()
 

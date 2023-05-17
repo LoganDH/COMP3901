@@ -19,11 +19,9 @@ python-dotenv==0.21.1
 SQLAlchemy==1.4.31
 Werkzeug==2.2.3
 WTForms==3.0.1
+wtforms_sqlalchemy==0.3
 zipp==3.12.1
 # Machine Learning
 pandas==2.0.0
 nltk==3.8.1
 scikit-learn==1.2.2
-# Scraper for social networking services (SNS)
-snscrape
-tweepy==4.14.0

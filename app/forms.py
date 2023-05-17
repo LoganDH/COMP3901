@@ -1,16 +1,19 @@
 from app import app
-from .extractor import get_schools as get_schls, get_datasets
+from .extractor import get_datasets
 from flask_wtf import FlaskForm
+from wtforms import SelectField
+from wtforms_sqlalchemy.fields import QuerySelectField
+from app.models import Schools as SchoolsTBL  # Replace with your actual model
 from wtforms import StringField, TextAreaField, DecimalField, IntegerField, PasswordField, SelectField
 from wtforms.validators import InputRequired, Email
 
 class UserForm(FlaskForm):
-    def get_schools():
+    def query_factory():
         with app.app_context():
-            return([(school.id, school.name) for school in get_schls()])
-    # For school_id, we should be using 'wtforms_sqlalchemy.QuerySelectField'
-    # Due to time constraints we did not get to make that change.
-    school_id = SelectField('School', choices=get_schools())
+            return SchoolsTBL.query.all()
+    def get_pk(obj):
+        return obj.id
+    school_id = QuerySelectField('School', query_factory=query_factory, get_label='name', get_pk=get_pk, allow_blank=True, validators=[InputRequired()])
     username = StringField('Username', validators=[InputRequired()])
     first_name = StringField('First Name', validators=[InputRequired()])
     last_name = StringField('Last Name', validators=[InputRequired()])

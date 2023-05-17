@@ -1,4 +1,5 @@
 from .models import Schools as SchoolsTBL
+import time
 import pandas as pd
 import nltk
 import csv
@@ -17,6 +18,7 @@ def cluster_data(data, min_samples, distance):
     # Convert tokenized data into a matrix of TF-IDF features
     tfidf_vectorizer = TfidfVectorizer()
     tfidf_matrix = tfidf_vectorizer.fit_transform([' '.join(text) for text in tokenized_data])
+    print("Matrix dimension:", tfidf_matrix.shape, tfidf_matrix)
 
     # Cluster data into categories using DBSCAN
     dbscan = DBSCAN(eps=distance, min_samples=min_samples, metric='cosine')
@@ -54,6 +56,16 @@ def get_schools():
     schools = SchoolsTBL.query.all()
     return(schools)
 
+def timer_test():
+    start = time.time()
+    print("hello")
+    data = fetch_data('military-incidents-in-india.csv')
+    clusters = cluster_data(data, 4, 0.4)
+    end = time.time()
+    print(end - start)
+
+#timer_test()
+
 '''
 # import mysql.connector
 
@@ -88,7 +100,10 @@ for key, value in clusters.items():
 
 
 
-events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.")
+events = ("I drive a honda and it's fast.", "I drive a range rover and its luxurious.", "I love to eat an apple.", "The weather is nice today.", "Oranges are my favourite fruit.", "Toyotas are very reliable cars.", "I did not know that grapes were used to make wine.", "I use a towel to dry off after a shower.", "The new hyundai cars are very sleek.", "Stephen Graham was not feeling well today.
+Stephen got sick and left school early.
+Stephen Brown got in an argument with Andre French.
+Andre did a good job of defusing the situation between him and Stephen.)
 
 
 
