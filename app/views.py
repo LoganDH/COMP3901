@@ -111,7 +111,7 @@ def new_event():
         db.session.add(entry)
         db.session.commit()
         flash('Message successfully added!', 'success')
-        return redirect(url_for('events'))
+        redirect(url_for('events'))
 
     flash_errors(new_event_form)
     return render_template('add_event.html', form=new_event_form)

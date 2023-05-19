@@ -21,7 +21,7 @@ def cluster_data(data, min_samples, distance):
     print("Matrix dimension:", tfidf_matrix.shape, tfidf_matrix)
 
     # Cluster data into categories using DBSCAN
-    dbscan = DBSCAN(eps=distance, min_samples=min_samples, metric='cosine')
+    dbscan = DBSCAN(eps=distance, min_samples=min_samples, metric='euclidean')
     dbscan.fit(tfidf_matrix)
 
     # Assign each data entry to its corresponding cluster
